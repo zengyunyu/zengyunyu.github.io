@@ -4,13 +4,17 @@
   <meta charset="utf-8">
   
   
-  <title>曾云钰</title>
+  <title>汇编指令 | 曾云钰</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="曾云钰">
-<meta property="og:url" content="http://example.com/index.html">
+  <meta name="description" content="汇编指令NOP(No Operation) 机器码为0x90，没有操作数，执行这条指令时CPU什么都不干 PUSH将数据压入栈中，指令格式为 push x。 x可取imm8，imm16，r&#x2F;m16，r&#x2F;m32，r&#x2F;m64。(imm代表立即数，r代表寄存器，m代表内存) 栈指针寄存器ESP(RSP)自动递减。 例：push eax  POP从栈中弹出数据，指令格式为po">
+<meta property="og:type" content="article">
+<meta property="og:title" content="汇编指令">
+<meta property="og:url" content="http://example.com/2025/02/21/asm1/index.html">
 <meta property="og:site_name" content="曾云钰">
+<meta property="og:description" content="汇编指令NOP(No Operation) 机器码为0x90，没有操作数，执行这条指令时CPU什么都不干 PUSH将数据压入栈中，指令格式为 push x。 x可取imm8，imm16，r&#x2F;m16，r&#x2F;m32，r&#x2F;m64。(imm代表立即数，r代表寄存器，m代表内存) 栈指针寄存器ESP(RSP)自动递减。 例：push eax  POP从栈中弹出数据，指令格式为po">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-02-21T05:27:54.000Z">
+<meta property="article:modified_time" content="2025-02-21T05:29:39.738Z">
 <meta property="article:author" content="zengyunyu">
 <meta name="twitter:card" content="summary">
   
@@ -69,9 +73,7 @@
 </header>
 
       <div class="outer">
-        <section id="main">
-  
-    <article id="post-asm1" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+        <section id="main"><article id="post-asm1" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2025/02/21/asm1/" class="article-date">
   <time class="dt-published" datetime="2025-02-21T05:27:54.000Z" itemprop="datePublished">2025-02-21</time>
@@ -84,8 +86,8 @@
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2025/02/21/asm1/">汇编指令</a>
+    <h1 class="p-name article-title" itemprop="headline name">
+      汇编指令
     </h1>
   
 
@@ -189,63 +191,19 @@
     </footer>
   </div>
   
-</article>
-
-
-
+    
+<nav id="article-nav">
   
-    <article id="post-hello-world" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2025/02/21/hello-world/" class="article-date">
-  <time class="dt-published" datetime="2025-02-21T05:10:04.174Z" itemprop="datePublished">2025-02-21</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
   
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2025/02/21/hello-world/">Linux学习1</a>
-    </h1>
+    <a href="/2025/02/21/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Älter</strong>
+      <div class="article-nav-title">Linux学习1</div>
+    </a>
   
+</nav>
 
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h2 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h2><h3 id="Linux下的漏洞防御机制"><a href="#Linux下的漏洞防御机制" class="headerlink" title="Linux下的漏洞防御机制"></a>Linux下的漏洞防御机制</h3><p>1、RELRO:只读重定位</p>
-<p>​	-z norelro(不开) 	No RELRO</p>
-<p>​	-z lazy(部分保护)	Partial RELRO</p>
-<p>​	-z now(全保护)	Full RELRO</p>
-<p>2、stack(canary)：栈溢出保护</p>
-<p>​	-fno-stack-protector关闭 </p>
-<p>​	-fstack-protector开启</p>
-<p>​	-fstack-protector-all全开</p>
-<p>3、NX：栈不可执行</p>
-<p>​	-z execstack关闭	NX disabled</p>
-<p>​	-z noexecstack打开	NX enable</p>
-<p>4、PIE：地址无关可执行文件</p>
-<p>-no-pie 	NO PIE</p>
-<p>-pie 	PIE enable</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2025/02/21/hello-world/" data-id="cm7ebbkdh0000tcvd332iesl3" data-title="Linux学习1" class="article-share-link"><span class="fa fa-share">Teilen</span></a>
-      
-      
-      
-    </footer>
-  </div>
   
 </article>
-
-
-
-  
 
 
 </section>
