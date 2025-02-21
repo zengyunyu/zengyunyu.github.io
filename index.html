@@ -1,335 +1,168 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-  
-  
-  <title>曾云钰</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta property="og:type" content="website">
+<!DOCTYPE html><html lang="zh-cn" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>曾云钰</title><meta name="author" content="zengyunyu"><meta name="copyright" content="zengyunyu"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta property="og:type" content="website">
 <meta property="og:title" content="曾云钰">
 <meta property="og:url" content="http://example.com/index.html">
 <meta property="og:site_name" content="曾云钰">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/butterfly-icon.png">
 <meta property="article:author" content="zengyunyu">
 <meta name="twitter:card" content="summary">
-  
-    <link rel="alternate" href="/atom.xml" title="曾云钰" type="application/atom+xml">
-  
-  
-    <link rel="shortcut icon" href="/favicon.png">
-  
-  
-  
-<link rel="stylesheet" href="/css/style.css">
+<meta name="twitter:image" content="http://example.com/img/butterfly-icon.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
 
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
   
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
     
-<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
-
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
   
-  
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fork-awesome@1.2.0/css/fork-awesome.min.css">
-
-<meta name="generator" content="Hexo 7.3.0"></head>
-
-<body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/" id="logo">曾云钰</a>
-      </h1>
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Failed',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '曾云钰',
+  isHighlightShrink: false,
+  isToc: false,
+  pageType: 'home'
+}</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="web_bg" style="background-image: url(https://pic1.imgdb.cn/item/67b81287d0e0a243d4013fdc.jpg);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/butterfly-icon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">2</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">1</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 档案</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="page" id="body-wrap"><header class="full_page" id="page-header" style="background-image: url(https://pic1.imgdb.cn/item/67b81287d0e0a243d4013fdc.jpg);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">曾云钰</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 档案</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="site-info"><h1 id="site-title">曾云钰</h1></div><div id="scroll-down"><i class="fas fa-angle-down scroll-down-effects"></i></div></header><main class="layout" id="content-inner"><div class="recent-posts nc" id="recent-posts"><div class="recent-post-items"><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2025/02/21/asm1/" title="汇编指令">汇编指令</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2025-02-21T05:27:54.000Z" title="Created 2025-02-21 13:27:54">2025-02-21</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E6%B1%87%E7%BC%96%E5%AD%A6%E4%B9%A0/">汇编学习</a></span></div><div class="content">汇编指令NOP(No Operation) 机器码为0x90，没有操作数，执行这条指令时CPU什么都不干 PUSH将数据压入栈中，指令格式为 push x。 x可取imm8，imm16，r&#x2F;m16，r&#x2F;m32，r&#x2F;m64。(imm代表立即数，r代表寄存器，m代表内存) 栈指针寄存器ESP(RSP)自动递减。 例：push eax  POP从栈中弹出数据，指令格式为pop x x可取r&#x2F;m16，r&#x2F;m32，r&#x2F;m64。 栈指针寄存器ESP(RSP)自动递增。 例：pop eax MOV将数据从源操作数移动到目的操作数，指令格式为mov x1,x2。意为从x2移动数据到x1。 x1,x2可以是：1、寄存器到寄存器 ​			2、内存到寄存器，寄存器到内存 ​			3、立即数到寄存器，立即数到内存 注：不能从内存到内存 LEA用于载入有效地址，指令格式为lea x1,x2。 ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2025/02/21/hello-world/" title="Linux学习1">Linux学习1</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2025-02-21T05:10:04.174Z" title="Created 2025-02-21 13:10:04">2025-02-21</time></span></div><div class="content">LinuxLinux下的漏洞防御机制1、RELRO:只读重定位 ​	-z norelro(不开) 	No RELRO ​	-z lazy(部分保护)	Partial RELRO ​	-z now(全保护)	Full RELRO 2、stack(canary)：栈溢出保护 ​	-fno-stack-protector关闭  ​	-fstack-protector开启 ​	-fstack-protector-all全开 3、NX：栈不可执行 ​	-z execstack关闭	NX disabled ​	-z noexecstack打开	NX enable 4、PIE：地址无关可执行文件 -no-pie 	NO PIE -pie 	PIE enable </div></div></div></div><nav id="pagination"><div class="pagination"><span class="page-number current">1</span></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/butterfly-icon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">zengyunyu</div><div class="author-info-description"></div><div class="site-data"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">2</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">1</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Posts</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/02/21/asm1/" title="汇编指令">汇编指令</a><time datetime="2025-02-21T05:27:54.000Z" title="Created 2025-02-21 13:27:54">2025-02-21</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/02/21/hello-world/" title="Linux学习1">Linux学习1</a><time datetime="2025-02-21T05:10:04.174Z" title="Created 2025-02-21 13:10:04">2025-02-21</time></div></div></div></div><div class="card-widget card-categories"><div class="item-headline">
+            <i class="fas fa-folder-open"></i>
+            <span>Categories</span>
+            
+          </div>
+          <ul class="card-category-list" id="aside-cat-list">
+            <li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E6%B1%87%E7%BC%96%E5%AD%A6%E4%B9%A0/"><span class="card-category-list-name">汇编学习</span><span class="card-category-list-count">1</span></a></li>
+          </ul></div><div class="card-widget card-archives">
+    <div class="item-headline">
+      <i class="fas fa-archive"></i>
+      <span>Archives</span>
       
     </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
-        
-          <a class="main-nav-link" href="/">Home</a>
-        
-          <a class="main-nav-link" href="/archives">Archives</a>
-        
-      </nav>
-      <nav id="sub-nav">
-        
-        
-          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
-        
-        <a class="nav-icon nav-search-btn" title="Suche"><span class="fa fa-search"></span></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Suche"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
-      </div>
-    </div>
-  </div>
-</header>
-
-      <div class="outer">
-        <section id="main">
   
-    <article id="post-asm1" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2025/02/21/asm1/" class="article-date">
-  <time class="dt-published" datetime="2025-02-21T05:27:54.000Z" itemprop="datePublished">2025-02-21</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2025/02/21/asm1/">汇编指令</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
+    <ul class="card-archive-list">
       
-        <h2 id="汇编指令"><a href="#汇编指令" class="headerlink" title="汇编指令"></a>汇编指令</h2><h3 id="NOP-No-Operation"><a href="#NOP-No-Operation" class="headerlink" title="NOP(No Operation)"></a>NOP(No Operation)</h3><p> 机器码为0x90，没有操作数，执行这条指令时CPU什么都不干</p>
-<h3 id="PUSH"><a href="#PUSH" class="headerlink" title="PUSH"></a>PUSH</h3><p>将数据压入栈中，指令格式为 push x。</p>
-<p>x可取imm8，imm16，r&#x2F;m16，r&#x2F;m32，r&#x2F;m64。(imm代表立即数，r代表寄存器，m代表内存)</p>
-<p>栈指针寄存器ESP(RSP)自动递减。</p>
-<p>例：push eax </p>
-<h3 id="POP"><a href="#POP" class="headerlink" title="POP"></a>POP</h3><p>从栈中弹出数据，指令格式为pop x</p>
-<p>x可取r&#x2F;m16，r&#x2F;m32，r&#x2F;m64。</p>
-<p>栈指针寄存器ESP(RSP)自动递增。</p>
-<p>例：pop eax</p>
-<h3 id="MOV"><a href="#MOV" class="headerlink" title="MOV"></a>MOV</h3><p>将数据从源操作数移动到目的操作数，指令格式为mov x1,x2。意为从x2移动数据到x1。</p>
-<p>x1,x2可以是：1、寄存器到寄存器</p>
-<p>​			2、内存到寄存器，寄存器到内存</p>
-<p>​			3、立即数到寄存器，立即数到内存</p>
-<p>注：不能从内存到内存</p>
-<h3 id="LEA"><a href="#LEA" class="headerlink" title="LEA"></a>LEA</h3><p>用于载入有效地址，指令格式为lea x1,x2。</p>
-<p> x1可以是r16&#x2F;32&#x2F;64,x2是内存地址，常用[]语法形式，意为引用求值。</p>
-<p>常用于指针运算，有时用于数值计算。</p>
-<p>例如：ebx&#x3D;ox2,edx&#x3D;0x1000</p>
-<p>​	lea eax,[adx] (eax&#x3D;edx)</p>
-<h3 id="ADD"><a href="#ADD" class="headerlink" title="ADD"></a>ADD</h3><p>计算加法操作，指令格式为add x1,x2</p>
-<p>x1,x2可以是r&#x2F;m16，r&#x2F;m32，r&#x2F;m64，x2还可以是立即数，但二者不能同时是内存操作数。</p>
-<p>指令的计算结果将影响eflags寄存器，修改OF,SF,ZF,AF,PF,CF标志位。</p>
-<p>例：</p>
-<p>add esp,8(esp+&#x3D;8)</p>
-<h3 id="SUB"><a href="#SUB" class="headerlink" title="SUB"></a>SUB</h3><p>计算减法操作，指令格式为sub x1,x2</p>
-<p>x1,x2可以是r&#x2F;m16，r&#x2F;m32，r&#x2F;m64，x2还可以是立即数，但二者不能同时是内存操作数。</p>
-<p>指令的计算结果将影响eflags寄存器，修改OF,SF,ZF,AF,PF,CF标志位。</p>
-<h3 id="IML-MUL"><a href="#IML-MUL" class="headerlink" title="IML&#x2F;MUL"></a>IML&#x2F;MUL</h3><p>IML用于实现<strong>有符号数</strong>的乘法运算。</p>
-<p>三种指令格式：</p>
-<p>imul r&#x2F;m32;edx	:eax&#x3D;eax*r&#x2F;m32</p>
-<p>imul reg,r&#x2F;m32	;reg&#x3D;reg*r&#x2F;m32</p>
-<p>imul reg,r&#x2F;m32,imm	;reg&#x3D;r&#x2F;m32*imm</p>
-<p>MUL指令是<strong>无符号</strong>乘法。 </p>
-<h3 id="IDIV-DIV"><a href="#IDIV-DIV" class="headerlink" title="IDIV&#x2F;DIV"></a>IDIV&#x2F;DIV</h3><p>DIV用于实现无符号数的除法运算。</p>
-<p>两种指令格式：</p>
-<p>无符号除法，div ax，r&#x2F;m8	 ;ax除以r&#x2F;m8,al是商，ah是余数。</p>
-<p>无符号除法，div eax,r&#x2F;m32	;edx:eax除以r&#x2F;m32,eax是商，edx是余数</p>
-<p>若被除数是DWORD，在指令执行前edx被置为0。</p>
-<p>若除数是0，则抛出除零异常。</p>
-<h3 id="AND"><a href="#AND" class="headerlink" title="AND"></a>AND</h3><p>实现操作数的逻辑与运算。指令格式为and x1,x2。</p>
-<p>x1,x2可以是r&#x2F;m16，r&#x2F;m32，r&#x2F;m64，x2还可以是立即数，但二者不能同时是内存操作数。</p>
-<h3 id="OR"><a href="#OR" class="headerlink" title="OR"></a>OR</h3><p>实现操作数的逻辑或运算。指令格式为or x1,x2。</p>
-<p>x1,x2可以是r&#x2F;m16，r&#x2F;m32，r&#x2F;m64，x2还可以是立即数，但二者不能同时是内存操作数。</p>
-<h3 id="XOR"><a href="#XOR" class="headerlink" title="XOR"></a>XOR</h3><p>实现操作数的逻辑异或运算。指令格式为xor x1,x2。</p>
-<p>x1,x2可以是r&#x2F;m16，r&#x2F;m32，r&#x2F;m64，x2还可以是立即数，但二者不能同时是内存操作数。</p>
-<p>注：XOR常用于清零运算，如xor eax,eax,<strong>效率高</strong>。  </p>
-<h3 id="NOT"><a href="#NOT" class="headerlink" title="NOT"></a>NOT</h3><p>实现操作数的逻辑非运算。指令格式为not x。</p>
-<p>x可以是r&#x2F;m16，r&#x2F;m32，r&#x2F;m64</p>
-<h3 id="SHL"><a href="#SHL" class="headerlink" title="SHL"></a>SHL</h3><p>实现操作数的逻辑左移运算。</p>
-<p>指令格式为shl x1,x2:</p>
-<p>x1可取r&#x2F;m16，r&#x2F;m32，r&#x2F;m64</p>
-<p>x2可以是cl或者占用1字节的立即数，表示左移长度。</p>
-<p>注：左移运算是乘2的高效实现方法，被用于乘法性能优化。</p>
-<h3 id="SHR"><a href="#SHR" class="headerlink" title="SHR"></a>SHR</h3><p>实现操作数的逻辑右移运算。</p>
-<p>指令格式为shr x1,x2:</p>
-<p>x1可取r&#x2F;m16，r&#x2F;m32，r&#x2F;m64</p>
-<p>x2可以是cl或者占用1字节的立即数，表示右移长度。</p>
-<p>注：右移运算是除以2的高效实现方法，被用于除法性能优化。</p>
-<h3 id="JMP"><a href="#JMP" class="headerlink" title="JMP"></a>JMP</h3><p>改变 EIP(RIP)的值到目标地址，实现控制流跳转。指令格式为jmp x。<br>x可取 imm, r&#x2F;m16, r&#x2F;m32,r&#x2F;m64 等。<br>jmp 目标地址x的主要形式:<br>	1、短跳方式，使用相对地址<br>	相对于jmp 指令的下一条指令，1字节(-128-127)范围<br>	例如：0x00401021 处指令“jmp 0x00401028”为短跳方式，实际上，内存中并没有0x00401023 这一字符串或常量，	而是前跳5个字节<br>	某些反汇编器将其标记为jmp short<br>	2、近跳方式，使用相对地址<br> 	相对于jmp 指令的下一条指令，相对地址4字节范围<br>	3、跳方式(段间转移)<br>	4、绝对地址，使用直接地址<br>	指令中硬编码方式的内存地址<br>	5、绝对地址，使用间接地址<br>	指令中寄存器或内存间接访问的地址</p>
-<h3 id="JCC"><a href="#JCC" class="headerlink" title="JCC"></a>JCC</h3><p>是一系列指令的集合，该指令在指定条件满足时将控制流转向目标地址。</p>
-<p>指令格式为jcc x。</p>
-<p>启动设置：</p>
-<p>比较操作设置eflags寄存器的标志位。</p>
-<p>如JNZ指令，当eflags的ZF未被设置(ZF&#x3D;0)时， 指令满足跳转条件，执行控制转移到目的地址x</p>
-<p>几个常见jcc指令的判断条件：</p>
-<p>jz&#x2F;je: if ZF &#x3D;&#x3D; 1<br>jnz&#x2F;jne: if ZF &#x3D;&#x3D; 0<br>jle&#x2F;jng: if ZF &#x3D;&#x3D; 1 or SF !&#x3D; OF<br>jge&#x2F;jnl: if SF &#x3D;&#x3D; OF<br>jbe:if CF&#x3D;&#x3D;1 or ZF &#x3D;&#x3D;1<br>jb: if CF&#x3D;&#x3D;1 </p>
-<h3 id="CMP"><a href="#CMP" class="headerlink" title="CMP"></a>CMP</h3><p>用于两个操作数的大小比较。指令格式为 cmp x1,x2。<br>cmp 指令通过将 x1 减去 x2 的方式实现比较，根据减法结果设置 eflags 的相应标志位，且将减法结果丢弃。<br>cmp &lt;-&gt; sub :<br>	以相同的方式进行减法操作，以同样的方式设置 eflags 寄存器<br>	但 sub 指令将计算结果存入x1，而 cmp 指令不保存计算结果<br>修改的 eflags 寄存器标志位有 CF,OF, SF,ZF,AF,PF 。<br>例:   mov eax,1<br>	mov bl,0x80<br>	mov c1，0x9<br>	cmp bl，cl<br>	jb label1<br>	mov eax，0<br>	label1:</p>
-<h3 id="TEST"><a href="#TEST" class="headerlink" title="TEST"></a>TEST</h3><p>用于两个操作数的逻辑比较。指令格式为 test x1,x2。<br>test 指令通过计算两个操作数的逻辑与(&amp;)位运算实现比较操作，根据与操作的结果设置 eflags 的相应标志位，且将与操作计算结果丢弃<br>修改的 eflags 寄存器标志位有 SF, ZF,PF。<br>例:   mov eax.<br>	mov ecx，0x9<br>	test ecx, ecx<br>	jz label1<br>	mov eax，0<br>	label :</p>
-<h3 id="CALL"><a href="#CALL" class="headerlink" title="CALL"></a>CALL</h3><p>将程序控制流转向一个子函数。指令格式为 call x。<br>x可取 r&#x2F;m16, r&#x2F;m32,r&#x2F;m64, ptr16:16, ptr16:32。<br>启动设置:参数传递，使用<strong>函数调用约定</strong><br>具体过程:<br>1.首先，将下一条指令的地址压入栈中<br>2.然后，改变 EIP(RIP)的值为 x<br>3.x可以是绝对地址，也可以是相对于 CALL 指令尾的相对地址</p>
-<h3 id="LEAVE"><a href="#LEAVE" class="headerlink" title="LEAVE"></a>LEAVE</h3><p>用于子函数退出时清理栈的操作，常与RET指令配套使用。<br>实际操作为：<br>1.设置 ESP(RSP)为 EBP(RBP)	；mov esp,ebp<br>2.弹出栈顶数据到 EBP(RBP)	;pop ebp</p>
-<h3 id="RET"><a href="#RET" class="headerlink" title="RET"></a>RET</h3><p>将程序控制流从子函数返回到调用函数，<br>两种指令格式:<br>1、ret<br>	将栈顶数据弹到 EIP(RIP)<br>	一般用于 cdecl<br>2、ret x<br>	将栈顶数据弹到 EIP(RIP)<br>	ESP(RSP)+&#x3D;x<br>	一般用于 stdcall</p>
-<h3 id="REP前缀"><a href="#REP前缀" class="headerlink" title="REP前缀"></a>REP前缀</h3><p>rep 指令前缀表示重复执行某项操作。<br>例如 stos 是一条可单独执行的指令，表示存储字符到目标地址。rep stos 表示重复执行stos 指令，直到 ecx为 0。<br>类似的，还有 replods、rep movs 等指令。</p>
-<h3 id="REP-STOS"><a href="#REP-STOS" class="headerlink" title="REP STOS"></a>REP STOS</h3><p>实际操作为:<br>1.rep 指令前缀使用 ecx 作为其计数器，表示重复执行 stos 指令的次数，每次执行时，都会递减ecx，当ecx为0时，结束重复执行。每次存储一个字节或一个双字。<br>2.rep stos 表示存储 al 或 eax 的值到 [edi]<br>3.每次存储一个字节或一个双字后，edi 的值自增，指令的执行结果为存储到连续的内存空间</p>
-<p>启动设置:</p>
-<p>设置 edi 为存储的起始目标地址</p>
-<p>设置 eax 或 al 为被存储的值</p>
-<p>设置 ecx 为执行次数</p>
-<h3 id="REP-MOVS"><a href="#REP-MOVS" class="headerlink" title="REP MOVS"></a>REP MOVS</h3><p>REP MOVS与 REP STOS 指令类似，重复执行 movs指令多次，直到 ecx 的值为 0.</p>
-<p>实际操作为:</p>
-<p>1.每次移动一个字节或一个双字，从[esi] 地址的字符移动到 [edi] 内存中</p>
-<p>2.每次执行 movs 操作后，esi和 edi 的值都会被增加</p>
-<p>启动设置:</p>
-<p>设置 edi 为存储的起始目标地址</p>
-<p>设置 esi 为存储的起始源地址</p>
-<p>设置 ecx 为执行次数</p>
-
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2025/02/">
+            <span class="card-archive-list-date">
+              二月 2025
+            </span>
+            <span class="card-archive-list-count">2</span>
+          </a>
+        </li>
       
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2025/02/21/asm1/" data-id="cm7ec0h7r00002kvdhyk9f3by" data-title="汇编指令" class="article-share-link"><span class="fa fa-share">Teilen</span></a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-hello-world" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2025/02/21/hello-world/" class="article-date">
-  <time class="dt-published" datetime="2025-02-21T05:10:04.174Z" itemprop="datePublished">2025-02-21</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2025/02/21/hello-world/">Linux学习1</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h2 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h2><h3 id="Linux下的漏洞防御机制"><a href="#Linux下的漏洞防御机制" class="headerlink" title="Linux下的漏洞防御机制"></a>Linux下的漏洞防御机制</h3><p>1、RELRO:只读重定位</p>
-<p>​	-z norelro(不开) 	No RELRO</p>
-<p>​	-z lazy(部分保护)	Partial RELRO</p>
-<p>​	-z now(全保护)	Full RELRO</p>
-<p>2、stack(canary)：栈溢出保护</p>
-<p>​	-fno-stack-protector关闭 </p>
-<p>​	-fstack-protector开启</p>
-<p>​	-fstack-protector-all全开</p>
-<p>3、NX：栈不可执行</p>
-<p>​	-z execstack关闭	NX disabled</p>
-<p>​	-z noexecstack打开	NX enable</p>
-<p>4、PIE：地址无关可执行文件</p>
-<p>-no-pie 	NO PIE</p>
-<p>-pie 	PIE enable</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2025/02/21/hello-world/" data-id="cm7ebbkdh0000tcvd332iesl3" data-title="Linux学习1" class="article-share-link"><span class="fa fa-share">Teilen</span></a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-
-
-</section>
-        
-          <aside id="sidebar">
-  
-    
-
-  
-    
-
-  
-    
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Archiv</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/02/">二月 2025</a></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">letzter Beitrag</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/2025/02/21/asm1/">汇编指令</a>
-          </li>
-        
-          <li>
-            <a href="/2025/02/21/hello-world/">Linux学习1</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-
-  
-</aside>
-        
-      </div>
-      <footer id="footer">
-  
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      
-      &copy; 2025 zengyunyu<br>
-      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
-    </div>
-  </div>
-</footer>
-
-    </div>
-    <nav id="mobile-nav">
-  
-    <a href="/" class="mobile-nav-link">Home</a>
-  
-    <a href="/archives" class="mobile-nav-link">Archives</a>
-  
-</nav>
-    
-
-
-<script src="/js/jquery-3.6.4.min.js"></script>
-
-
-
-  
-<script src="/fancybox/jquery.fancybox.min.js"></script>
-
-
-
-
-<script src="/js/script.js"></script>
-
-
-
-
-
-  </div>
-</body>
-</html>
+    </ul>
+  </div><div class="card-widget card-webinfo"><div class="item-headline"><i class="fas fa-chart-line"></i><span>Website Info</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">Article Count :</div><div class="item-count">2</div></div><div class="webinfo-item"><div class="item-name">Unique Visitors :</div><div class="item-count" id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">Page Views :</div><div class="item-count" id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">Last Update :</div><div class="item-count" id="last-push-date" data-lastPushDate="2025-02-21T05:48:57.499Z"><i class="fa-solid fa-spinner fa-spin"></i></div></div></div></div></div></div></main><footer id="footer" style="background-image: url(https://pic1.imgdb.cn/item/67b81287d0e0a243d4013fdc.jpg);"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2025 By zengyunyu</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 7.3.0</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.3.3</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="Toggle Between Light and Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Settings"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
