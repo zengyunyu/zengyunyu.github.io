@@ -1,0 +1,164 @@
+/* ========== 全局背景透明 ========== */
+body {
+    background: transparent !important;
+}
+
+/* ========== 侧边栏所有卡片强制透明 ========== */
+#aside-content .card-widget,
+#aside-content .card-widget .item-headline,
+#aside-content .card-widget .card-content,
+#aside-content .card-widget .card-header,
+#aside-content .card-widget .announcement_content,
+#aside-content .card-widget .aside-list-item,
+#aside-content .card-widget .card-category-list-item,
+#aside-content .card-widget .card-archive-list-item,
+#aside-content .card-widget .webinfo-item,
+#aside-content .card-widget .author-info-name,
+#aside-content .card-widget .site-data,
+#aside-content .card-widget #card-info-btn {
+    background: transparent !important;
+    background-color: transparent !important;
+    box-shadow: none !important;
+    border: none !important;
+}
+
+/* 移除标题左侧装饰 */
+#aside-content .card-widget .item-headline::before {
+    display: none !important;
+}
+
+/* 卡片分割线 */
+#aside-content .card-widget + .card-widget {
+    border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+/* ========== 统一透明度：0.3 可自己调整 ========== */
+#recent-posts .recent-post-item,
+#recent-posts .recent-post-info,
+#page, #post, .layout_post, #article-container,
+#body-wrap .layout {
+    /* 统一半透明背景 */
+    background: rgba(255, 255, 255, 0.1) !important; 
+    box-shadow: none !important;
+    border: none !important;
+}
+
+/* ========== 导航栏毛玻璃 ========== */
+#nav {
+    background: rgba(255, 255, 255, 0) !important;
+    backdrop-filter: blur(8px) !important;
+    -webkit-backdrop-filter: blur(8px) !important;
+}
+/* ==============================================
+   全局文字：更黑、更清晰、适配深浅模式
+============================================== */
+
+/* 浅色模式：正文文字加深（#333 比默认 #555 更黑） */
+:root {
+  --text-color: #2a2a2a !important;       /* 正文主色（更黑） */
+  --text-meta: #444 !important;           /* 日期/标签/分类（比正文浅一点，但仍清晰） */
+  --text-light: #555 !important;          /* 次要文字 */
+  --link-color: #1a73e8 !important;       /* 链接：更蓝、更显眼 */
+  --link-hover: #0d47a1 !important;
+}
+
+/* 深色模式：文字更白、对比度更高 */
+[data-theme="dark"] {
+  --text-color: #f0f0f0 !important;      /* 正文：接近纯白 */
+  --text-meta: #ccc !important;           /* 元信息：浅白 */
+  --text-light: #bbb !important;
+  --link-color: #64b5f6 !important;
+  --link-hover: #90caf9 !important;
+}
+
+/* 全局应用 */
+body,
+#article-container,
+.recent-post-info,
+.card-widget {
+  color: var(--text-color) !important;
+  font-weight: 450 !important; /* 轻微加粗，不臃肿 */
+}
+
+/* 标题系列：更粗、更黑、层级更强 */
+h1, h2, h3, h4, h5, h6,
+.post-title,
+.article-title,
+.card-title,
+.item-headline {
+  color: var(--text-color) !important;
+  font-weight: 600 !important; /* 标题明显加粗 */
+  text-shadow: 0 0 1px rgba(0,0,0,0.1) !important; /* 轻微描边，更立体 */
+}
+[data-theme="dark"] h1, h2, h3, h4, h5, h6 {
+  text-shadow: 0 0 1px rgba(255,255,255,0.2) !important;
+}
+
+/* 元信息（日期、分类、标签）：提高可见度 */
+.post-meta,
+.post-meta-item,
+.card-archive-list-item a,
+.card-category-list-item a,
+.tag-cloud a,
+#aside-content .card-widget {
+  color: var(--text-meta) !important;
+  font-weight: 500 !important;
+}
+
+/* 链接：更明显、hover 变色 */
+a,
+#aside-content .card-widget a,
+.recent-post-item a {
+  color: var(--link-color) !important;
+  font-weight: 500 !important;
+}
+a:hover {
+  color: var(--link-hover) !important;
+  text-decoration: underline !important;
+}
+
+/* 侧边栏文字：统一强化 */
+#aside-content .card-widget,
+#aside-content .card-widget *:not(.icon) {
+  color: var(--text-color) !important;
+}
+
+/* 导航栏文字：更粗更亮 */
+#nav a,
+#nav .site-name {
+  color: var(--text-color) !important;
+  font-weight: 550 !important;
+}
+[data-theme="dark"] #nav a {
+  color: #fff !important;
+}
+
+/* 按钮文字：更清晰 */
+button,
+.btn,
+#card-info-btn {
+  color: var(--text-color) !important;
+  font-weight: 600 !important;
+}
+
+/* 目录 TOC：文字更黑 */
+#toc,
+.toc-item a {
+  color: var(--text-meta) !important;
+  font-weight: 500 !important;
+}
+.toc-item.active a {
+  color: var(--link-color) !important;
+  font-weight: 600 !important;
+}
+
+/* 代码块文字：提高对比度（可选） */
+#article-container pre,
+#article-container code {
+  color: #111 !important;
+  font-weight: 500 !important;
+}
+[data-theme="dark"] #article-container pre,
+[data-theme="dark"] #article-container code {
+  color: #eee !important;
+}

@@ -1,0 +1,10 @@
+/* 鼠标线条背景样式 */
+canvas {
+    background: transparent !important;
+}
+
+/* 确保不遮挡博客内容 */
+body {
+    position: relative;
+    z-index: 0;
+}

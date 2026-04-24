@@ -1,0 +1,317 @@
+<!DOCTYPE html><html lang="zh-cn" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>汇编指令 | Nora</title><meta name="author" content="zengyunyu"><meta name="copyright" content="zengyunyu"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="汇编指令NOP(No Operation) 机器码为0x90，没有操作数，执行这条指令时CPU什么都不干 PUSH将数据压入栈中，指令格式为 push x。 x可取imm8，imm16，r&#x2F;m16，r&#x2F;m32，r&#x2F;m64。(imm代表立即数，r代表寄存器，m代表内存) 栈指针寄存器ESP(RSP)自动递减。 例：push eax  POP从栈中弹出数据，指令格式为po">
+<meta property="og:type" content="article">
+<meta property="og:title" content="汇编指令">
+<meta property="og:url" content="http://example.com/2025/02/21/asm1/index.html">
+<meta property="og:site_name" content="Nora">
+<meta property="og:description" content="汇编指令NOP(No Operation) 机器码为0x90，没有操作数，执行这条指令时CPU什么都不干 PUSH将数据压入栈中，指令格式为 push x。 x可取imm8，imm16，r&#x2F;m16，r&#x2F;m32，r&#x2F;m64。(imm代表立即数，r代表寄存器，m代表内存) 栈指针寄存器ESP(RSP)自动递减。 例：push eax  POP从栈中弹出数据，指令格式为po">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/butterfly-icon.png">
+<meta property="article:published_time" content="2025-02-21T05:27:54.000Z">
+<meta property="article:modified_time" content="2025-02-21T05:48:48.434Z">
+<meta property="article:author" content="zengyunyu">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/img/butterfly-icon.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "汇编指令",
+  "url": "http://example.com/2025/02/21/asm1/",
+  "image": "http://example.com/img/butterfly-icon.png",
+  "datePublished": "2025-02-21T05:27:54.000Z",
+  "dateModified": "2025-02-21T05:48:48.434Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "zengyunyu",
+      "url": "http://example.com/"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/2025/02/21/asm1/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Failed',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '汇编指令',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/css/custom.css"><link rel="stylesheet" href="/css/mouse-lines.css"><script>setTimeout(() => {
+  const canvas = document.createElement('canvas');
+  canvas.style.cssText = 'position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:-99999999;pointer-events:none;background:transparent;';
+  document.body.appendChild(canvas);
+  const ctx = canvas.getContext('2d');
+  let W = window.innerWidth, H = window.innerHeight;
+  canvas.width = W; canvas.height = H;
+
+  let mouse = { x: W/2, y: H/2, speed: 0, lastX: W/2, lastY: H/2 };
+
+  window.addEventListener('mousemove', e => {
+    mouse.lastX = mouse.x;
+    mouse.lastY = mouse.y;
+    mouse.x = e.clientX;
+    mouse.y = e.clientY;
+    let dx = mouse.x - mouse.lastX;
+    let dy = mouse.y - mouse.lastY;
+    mouse.speed = Math.hypot(dx, dy);
+  });
+
+  class Line {
+    constructor() {
+      this.x = Math.random() * W;
+      this.y = Math.random() * H;
+      this.angle = Math.random() * Math.PI * 2;
+      this.vx = (Math.random()-0.5)*0.3;
+      this.vy = (Math.random()-0.5)*0.3;
+      this.follow = false;
+    }
+    update() {
+      if (mouse.speed > 4) this.follow = false;
+      let d = Math.hypot(mouse.x-this.x, mouse.y-this.y);
+      if (d < 150 && mouse.speed < 4) this.follow = true;
+
+      if (this.follow) {
+        this.angle += 0.08;
+        this.x = mouse.x + Math.cos(this.angle)*80;
+        this.y = mouse.y + Math.sin(this.angle)*80;
+      } else {
+        this.x += this.vx;
+        this.y += this.vy;
+        if (this.x < 0 || this.x > W) this.vx *= -1;
+        if (this.y < 0 || this.y > H) this.vy *= -1;
+      }
+    }
+    draw() {
+      ctx.strokeStyle = "rgba(255, 0, 0, 0.5)";
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      let ex = this.x + Math.cos(this.angle)*40;
+      let ey = this.y + Math.sin(this.angle)*40;
+      ctx.moveTo(this.x, this.y);
+      ctx.lineTo(ex, ey);
+      ctx.stroke();
+    }
+  }
+
+  let lines = Array.from({length:80}, () => new Line());
+  function anim() {
+    ctx.clearRect(0,0,W,H);
+    lines.forEach(l => { l.update(); l.draw(); });
+    requestAnimationFrame(anim);
+  }
+  anim();
+
+  window.addEventListener("resize", () => {
+    W = window.innerWidth;
+    H = window.innerHeight;
+    canvas.width = W;
+    canvas.height = H;
+  });
+}, 1000);</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="web_bg" style="background-image: url(https://pic1.imgdb.cn/item/67b8151ed0e0a243d4014110.jpg);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/butterfly-icon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">3</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">2</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 档案</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(https://pic1.imgdb.cn/item/67b8151ed0e0a243d4014110.jpg);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Nora</span></a><a class="nav-page-title" href="/"><span class="site-name">汇编指令</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 档案</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">汇编指令</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2025-02-21T05:27:54.000Z" title="Created 2025-02-21 13:27:54">2025-02-21</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2025-02-21T05:48:48.434Z" title="Updated 2025-02-21 13:48:48">2025-02-21</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%B1%87%E7%BC%96%E5%AD%A6%E4%B9%A0/">汇编学习</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h2 id="汇编指令"><a href="#汇编指令" class="headerlink" title="汇编指令"></a>汇编指令</h2><h3 id="NOP-No-Operation"><a href="#NOP-No-Operation" class="headerlink" title="NOP(No Operation)"></a>NOP(No Operation)</h3><p> 机器码为0x90，没有操作数，执行这条指令时CPU什么都不干</p>
+<h3 id="PUSH"><a href="#PUSH" class="headerlink" title="PUSH"></a>PUSH</h3><p>将数据压入栈中，指令格式为 push x。</p>
+<p>x可取imm8，imm16，r&#x2F;m16，r&#x2F;m32，r&#x2F;m64。(imm代表立即数，r代表寄存器，m代表内存)</p>
+<p>栈指针寄存器ESP(RSP)自动递减。</p>
+<p>例：push eax </p>
+<h3 id="POP"><a href="#POP" class="headerlink" title="POP"></a>POP</h3><p>从栈中弹出数据，指令格式为pop x</p>
+<p>x可取r&#x2F;m16，r&#x2F;m32，r&#x2F;m64。</p>
+<p>栈指针寄存器ESP(RSP)自动递增。</p>
+<p>例：pop eax</p>
+<h3 id="MOV"><a href="#MOV" class="headerlink" title="MOV"></a>MOV</h3><p>将数据从源操作数移动到目的操作数，指令格式为mov x1,x2。意为从x2移动数据到x1。</p>
+<p>x1,x2可以是：1、寄存器到寄存器</p>
+<p>​			2、内存到寄存器，寄存器到内存</p>
+<p>​			3、立即数到寄存器，立即数到内存</p>
+<p>注：不能从内存到内存</p>
+<h3 id="LEA"><a href="#LEA" class="headerlink" title="LEA"></a>LEA</h3><p>用于载入有效地址，指令格式为lea x1,x2。</p>
+<p> x1可以是r16&#x2F;32&#x2F;64,x2是内存地址，常用[]语法形式，意为引用求值。</p>
+<p>常用于指针运算，有时用于数值计算。</p>
+<p>例如：ebx&#x3D;ox2,edx&#x3D;0x1000</p>
+<p>​	lea eax,[adx] (eax&#x3D;edx)</p>
+<h3 id="ADD"><a href="#ADD" class="headerlink" title="ADD"></a>ADD</h3><p>计算加法操作，指令格式为add x1,x2</p>
+<p>x1,x2可以是r&#x2F;m16，r&#x2F;m32，r&#x2F;m64，x2还可以是立即数，但二者不能同时是内存操作数。</p>
+<p>指令的计算结果将影响eflags寄存器，修改OF,SF,ZF,AF,PF,CF标志位。</p>
+<p>例：</p>
+<p>add esp,8(esp+&#x3D;8)</p>
+<h3 id="SUB"><a href="#SUB" class="headerlink" title="SUB"></a>SUB</h3><p>计算减法操作，指令格式为sub x1,x2</p>
+<p>x1,x2可以是r&#x2F;m16，r&#x2F;m32，r&#x2F;m64，x2还可以是立即数，但二者不能同时是内存操作数。</p>
+<p>指令的计算结果将影响eflags寄存器，修改OF,SF,ZF,AF,PF,CF标志位。</p>
+<h3 id="IML-MUL"><a href="#IML-MUL" class="headerlink" title="IML&#x2F;MUL"></a>IML&#x2F;MUL</h3><p>IML用于实现<strong>有符号数</strong>的乘法运算。</p>
+<p>三种指令格式：</p>
+<p>imul r&#x2F;m32;edx	:eax&#x3D;eax*r&#x2F;m32</p>
+<p>imul reg,r&#x2F;m32	;reg&#x3D;reg*r&#x2F;m32</p>
+<p>imul reg,r&#x2F;m32,imm	;reg&#x3D;r&#x2F;m32*imm</p>
+<p>MUL指令是<strong>无符号</strong>乘法。 </p>
+<h3 id="IDIV-DIV"><a href="#IDIV-DIV" class="headerlink" title="IDIV&#x2F;DIV"></a>IDIV&#x2F;DIV</h3><p>DIV用于实现无符号数的除法运算。</p>
+<p>两种指令格式：</p>
+<p>无符号除法，div ax，r&#x2F;m8	 ;ax除以r&#x2F;m8,al是商，ah是余数。</p>
+<p>无符号除法，div eax,r&#x2F;m32	;edx:eax除以r&#x2F;m32,eax是商，edx是余数</p>
+<p>若被除数是DWORD，在指令执行前edx被置为0。</p>
+<p>若除数是0，则抛出除零异常。</p>
+<h3 id="AND"><a href="#AND" class="headerlink" title="AND"></a>AND</h3><p>实现操作数的逻辑与运算。指令格式为and x1,x2。</p>
+<p>x1,x2可以是r&#x2F;m16，r&#x2F;m32，r&#x2F;m64，x2还可以是立即数，但二者不能同时是内存操作数。</p>
+<h3 id="OR"><a href="#OR" class="headerlink" title="OR"></a>OR</h3><p>实现操作数的逻辑或运算。指令格式为or x1,x2。</p>
+<p>x1,x2可以是r&#x2F;m16，r&#x2F;m32，r&#x2F;m64，x2还可以是立即数，但二者不能同时是内存操作数。</p>
+<h3 id="XOR"><a href="#XOR" class="headerlink" title="XOR"></a>XOR</h3><p>实现操作数的逻辑异或运算。指令格式为xor x1,x2。</p>
+<p>x1,x2可以是r&#x2F;m16，r&#x2F;m32，r&#x2F;m64，x2还可以是立即数，但二者不能同时是内存操作数。</p>
+<p>注：XOR常用于清零运算，如xor eax,eax,<strong>效率高</strong>。  </p>
+<h3 id="NOT"><a href="#NOT" class="headerlink" title="NOT"></a>NOT</h3><p>实现操作数的逻辑非运算。指令格式为not x。</p>
+<p>x可以是r&#x2F;m16，r&#x2F;m32，r&#x2F;m64</p>
+<h3 id="SHL"><a href="#SHL" class="headerlink" title="SHL"></a>SHL</h3><p>实现操作数的逻辑左移运算。</p>
+<p>指令格式为shl x1,x2:</p>
+<p>x1可取r&#x2F;m16，r&#x2F;m32，r&#x2F;m64</p>
+<p>x2可以是cl或者占用1字节的立即数，表示左移长度。</p>
+<p>注：左移运算是乘2的高效实现方法，被用于乘法性能优化。</p>
+<h3 id="SHR"><a href="#SHR" class="headerlink" title="SHR"></a>SHR</h3><p>实现操作数的逻辑右移运算。</p>
+<p>指令格式为shr x1,x2:</p>
+<p>x1可取r&#x2F;m16，r&#x2F;m32，r&#x2F;m64</p>
+<p>x2可以是cl或者占用1字节的立即数，表示右移长度。</p>
+<p>注：右移运算是除以2的高效实现方法，被用于除法性能优化。</p>
+<h3 id="JMP"><a href="#JMP" class="headerlink" title="JMP"></a>JMP</h3><p>改变 EIP(RIP)的值到目标地址，实现控制流跳转。指令格式为jmp x。<br>x可取 imm, r&#x2F;m16, r&#x2F;m32,r&#x2F;m64 等。<br>jmp 目标地址x的主要形式:<br>	1、短跳方式，使用相对地址<br>	相对于jmp 指令的下一条指令，1字节(-128-127)范围<br>	例如：0x00401021 处指令“jmp 0x00401028”为短跳方式，实际上，内存中并没有0x00401023 这一字符串或常量，	而是前跳5个字节<br>	某些反汇编器将其标记为jmp short<br>	2、近跳方式，使用相对地址<br> 	相对于jmp 指令的下一条指令，相对地址4字节范围<br>	3、跳方式(段间转移)<br>	4、绝对地址，使用直接地址<br>	指令中硬编码方式的内存地址<br>	5、绝对地址，使用间接地址<br>	指令中寄存器或内存间接访问的地址</p>
+<h3 id="JCC"><a href="#JCC" class="headerlink" title="JCC"></a>JCC</h3><p>是一系列指令的集合，该指令在指定条件满足时将控制流转向目标地址。</p>
+<p>指令格式为jcc x。</p>
+<p>启动设置：</p>
+<p>比较操作设置eflags寄存器的标志位。</p>
+<p>如JNZ指令，当eflags的ZF未被设置(ZF&#x3D;0)时， 指令满足跳转条件，执行控制转移到目的地址x</p>
+<p>几个常见jcc指令的判断条件：</p>
+<p>jz&#x2F;je: if ZF &#x3D;&#x3D; 1<br>jnz&#x2F;jne: if ZF &#x3D;&#x3D; 0<br>jle&#x2F;jng: if ZF &#x3D;&#x3D; 1 or SF !&#x3D; OF<br>jge&#x2F;jnl: if SF &#x3D;&#x3D; OF<br>jbe:if CF&#x3D;&#x3D;1 or ZF &#x3D;&#x3D;1<br>jb: if CF&#x3D;&#x3D;1 </p>
+<h3 id="CMP"><a href="#CMP" class="headerlink" title="CMP"></a>CMP</h3><p>用于两个操作数的大小比较。指令格式为 cmp x1,x2。<br>cmp 指令通过将 x1 减去 x2 的方式实现比较，根据减法结果设置 eflags 的相应标志位，且将减法结果丢弃。<br>cmp &lt;-&gt; sub :<br>	以相同的方式进行减法操作，以同样的方式设置 eflags 寄存器<br>	但 sub 指令将计算结果存入x1，而 cmp 指令不保存计算结果<br>修改的 eflags 寄存器标志位有 CF,OF, SF,ZF,AF,PF 。<br>例:   mov eax,1<br>	mov bl,0x80<br>	mov c1，0x9<br>	cmp bl，cl<br>	jb label1<br>	mov eax，0<br>	label1:</p>
+<h3 id="TEST"><a href="#TEST" class="headerlink" title="TEST"></a>TEST</h3><p>用于两个操作数的逻辑比较。指令格式为 test x1,x2。<br>test 指令通过计算两个操作数的逻辑与(&amp;)位运算实现比较操作，根据与操作的结果设置 eflags 的相应标志位，且将与操作计算结果丢弃<br>修改的 eflags 寄存器标志位有 SF, ZF,PF。<br>例:   mov eax.<br>	mov ecx，0x9<br>	test ecx, ecx<br>	jz label1<br>	mov eax，0<br>	label :</p>
+<h3 id="CALL"><a href="#CALL" class="headerlink" title="CALL"></a>CALL</h3><p>将程序控制流转向一个子函数。指令格式为 call x。<br>x可取 r&#x2F;m16, r&#x2F;m32,r&#x2F;m64, ptr16:16, ptr16:32。<br>启动设置:参数传递，使用<strong>函数调用约定</strong><br>具体过程:<br>1.首先，将下一条指令的地址压入栈中<br>2.然后，改变 EIP(RIP)的值为 x<br>3.x可以是绝对地址，也可以是相对于 CALL 指令尾的相对地址</p>
+<h3 id="LEAVE"><a href="#LEAVE" class="headerlink" title="LEAVE"></a>LEAVE</h3><p>用于子函数退出时清理栈的操作，常与RET指令配套使用。<br>实际操作为：<br>1.设置 ESP(RSP)为 EBP(RBP)	；mov esp,ebp<br>2.弹出栈顶数据到 EBP(RBP)	;pop ebp</p>
+<h3 id="RET"><a href="#RET" class="headerlink" title="RET"></a>RET</h3><p>将程序控制流从子函数返回到调用函数，<br>两种指令格式:<br>1、ret<br>	将栈顶数据弹到 EIP(RIP)<br>	一般用于 cdecl<br>2、ret x<br>	将栈顶数据弹到 EIP(RIP)<br>	ESP(RSP)+&#x3D;x<br>	一般用于 stdcall</p>
+<h3 id="REP前缀"><a href="#REP前缀" class="headerlink" title="REP前缀"></a>REP前缀</h3><p>rep 指令前缀表示重复执行某项操作。<br>例如 stos 是一条可单独执行的指令，表示存储字符到目标地址。rep stos 表示重复执行stos 指令，直到 ecx为 0。<br>类似的，还有 replods、rep movs 等指令。</p>
+<h3 id="REP-STOS"><a href="#REP-STOS" class="headerlink" title="REP STOS"></a>REP STOS</h3><p>实际操作为:<br>1.rep 指令前缀使用 ecx 作为其计数器，表示重复执行 stos 指令的次数，每次执行时，都会递减ecx，当ecx为0时，结束重复执行。每次存储一个字节或一个双字。<br>2.rep stos 表示存储 al 或 eax 的值到 [edi]<br>3.每次存储一个字节或一个双字后，edi 的值自增，指令的执行结果为存储到连续的内存空间</p>
+<p>启动设置:</p>
+<p>设置 edi 为存储的起始目标地址</p>
+<p>设置 eax 或 al 为被存储的值</p>
+<p>设置 ecx 为执行次数</p>
+<h3 id="REP-MOVS"><a href="#REP-MOVS" class="headerlink" title="REP MOVS"></a>REP MOVS</h3><p>REP MOVS与 REP STOS 指令类似，重复执行 movs指令多次，直到 ecx 的值为 0.</p>
+<p>实际操作为:</p>
+<p>1.每次移动一个字节或一个双字，从[esi] 地址的字符移动到 [edi] 内存中</p>
+<p>2.每次执行 movs 操作后，esi和 edi 的值都会被增加</p>
+<p>启动设置:</p>
+<p>设置 edi 为存储的起始目标地址</p>
+<p>设置 esi 为存储的起始源地址</p>
+<p>设置 ecx 为执行次数</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a href="http://example.com">zengyunyu</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="http://example.com/2025/02/21/asm1/">http://example.com/2025/02/21/asm1/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles on this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless otherwise stated.</span></div></div><div class="tag_share"><div class="post-share"><div class="social-share" data-image="/img/butterfly-icon.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i>打赏</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/wechat.jpg" target="_blank"><img class="post-qr-code-img" src="/img/wechat.jpg" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="/img/alipay.png" target="_blank"><img class="post-qr-code-img" src="/img/alipay.png" alt="支付宝"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2025/02/21/hello-world/" title="Linux学习"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info"><div class="info-1"><div class="info-item-1">Previous</div><div class="info-item-2">Linux学习</div></div><div class="info-2"><div class="info-item-1">LinuxLinux下的漏洞防御机制1、RELRO:只读重定位 ​	-z norelro(不开) 	No RELRO ​	-z lazy(部分保护)	Partial RELRO ​	-z now(全保护)	Full RELRO 2、stack(canary)：栈溢出保护 ​	-fno-stack-protector关闭  ​	-fstack-protector开启 ​	-fstack-protector-all全开 3、NX：栈不可执行 ​	-z execstack关闭	NX disabled ​	-z noexecstack打开	NX enable 4、PIE：地址无关可执行文件 -no-pie 	NO PIE -pie 	PIE enable </div></div></div></a><a class="pagination-related" href="/2026/04/25/%E5%8D%9A%E5%AE%A2%E6%9B%B4%E6%96%B0%E6%97%A5%E5%BF%97/" title="博客更新日志"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">Next</div><div class="info-item-2">博客更新日志</div></div><div class="info-2"><div class="info-item-1">引言最近决定重新拾起这个大一搭建的博客，这篇就专门记录一下这个简单博客的更新吧 网站运行时间添加在博客下方增添了网站的运行时间，感觉这样更有成就感一点 效果如图： 添加了博客404时的独立页面先上效果图： 过程中遇到了一点小问题，在访问(我的博客的404页面)时，404效果出现在博客的中心位置，原本博客的侧面板也会跟着显示出来，感觉很奇怪  后来找到原因，没在404.html文件前添加 1layout: false  来告诉代码不要套主题模板，只渲染纯内容。 </div></div></div></a></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/butterfly-icon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">zengyunyu</div><div class="author-info-description"></div><div class="site-data"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">3</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">2</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">制作不佳，敬请谅解</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B1%87%E7%BC%96%E6%8C%87%E4%BB%A4"><span class="toc-number">1.</span> <span class="toc-text">汇编指令</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#NOP-No-Operation"><span class="toc-number">1.1.</span> <span class="toc-text">NOP(No Operation)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#PUSH"><span class="toc-number">1.2.</span> <span class="toc-text">PUSH</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#POP"><span class="toc-number">1.3.</span> <span class="toc-text">POP</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MOV"><span class="toc-number">1.4.</span> <span class="toc-text">MOV</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LEA"><span class="toc-number">1.5.</span> <span class="toc-text">LEA</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ADD"><span class="toc-number">1.6.</span> <span class="toc-text">ADD</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SUB"><span class="toc-number">1.7.</span> <span class="toc-text">SUB</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#IML-MUL"><span class="toc-number">1.8.</span> <span class="toc-text">IML&#x2F;MUL</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#IDIV-DIV"><span class="toc-number">1.9.</span> <span class="toc-text">IDIV&#x2F;DIV</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#AND"><span class="toc-number">1.10.</span> <span class="toc-text">AND</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#OR"><span class="toc-number">1.11.</span> <span class="toc-text">OR</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#XOR"><span class="toc-number">1.12.</span> <span class="toc-text">XOR</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#NOT"><span class="toc-number">1.13.</span> <span class="toc-text">NOT</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SHL"><span class="toc-number">1.14.</span> <span class="toc-text">SHL</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SHR"><span class="toc-number">1.15.</span> <span class="toc-text">SHR</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#JMP"><span class="toc-number">1.16.</span> <span class="toc-text">JMP</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#JCC"><span class="toc-number">1.17.</span> <span class="toc-text">JCC</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CMP"><span class="toc-number">1.18.</span> <span class="toc-text">CMP</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#TEST"><span class="toc-number">1.19.</span> <span class="toc-text">TEST</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CALL"><span class="toc-number">1.20.</span> <span class="toc-text">CALL</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LEAVE"><span class="toc-number">1.21.</span> <span class="toc-text">LEAVE</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#RET"><span class="toc-number">1.22.</span> <span class="toc-text">RET</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#REP%E5%89%8D%E7%BC%80"><span class="toc-number">1.23.</span> <span class="toc-text">REP前缀</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#REP-STOS"><span class="toc-number">1.24.</span> <span class="toc-text">REP STOS</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#REP-MOVS"><span class="toc-number">1.25.</span> <span class="toc-text">REP MOVS</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Posts</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/04/25/%E5%8D%9A%E5%AE%A2%E6%9B%B4%E6%96%B0%E6%97%A5%E5%BF%97/" title="博客更新日志">博客更新日志</a><time datetime="2026-04-24T17:16:34.000Z" title="Created 2026-04-25 01:16:34">2026-04-25</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/02/21/asm1/" title="汇编指令">汇编指令</a><time datetime="2025-02-21T05:27:54.000Z" title="Created 2025-02-21 13:27:54">2025-02-21</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/02/21/hello-world/" title="Linux学习">Linux学习</a><time datetime="2025-02-21T05:10:04.174Z" title="Created 2025-02-21 13:10:04">2025-02-21</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url(https://pic1.imgdb.cn/item/67b8151ed0e0a243d4014110.jpg);"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2026 By zengyunyu</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 7.3.0</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.3.3</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Reading Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light and Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Settings"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"></div><script defer src="/js/mouse-lines.js"></script> - <span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span><script> var now = new Date(); function createtime() { var grt= new Date("04/25/2026 00:00:00"); now.setTime(now.getTime()+250); days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days); hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours); if(String(hnum).length === 1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum); mnum = Math.floor(minutes); if(String(mnum).length === 1 ){mnum = "0" + mnum;} seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum); snum = Math.round(seconds); if(String(snum).length === 1 ){snum = "0" + snum;} document.getElementById("timeDate").innerHTML = "本站已运行 "+dnum+" 天 "; document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒"; } setInterval(createtime,250); </script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
