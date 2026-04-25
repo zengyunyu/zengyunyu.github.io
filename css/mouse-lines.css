@@ -1,10 +1,5 @@
-/* 鼠标线条背景样式 */
-canvas {
-    background: transparent !important;
-}
-
-/* 确保不遮挡博客内容 */
-body {
+.main-content {
     position: relative;
-    z-index: 0;
+    z-index: 1;
+    background: transparent; /* 或半透明背景，让粒子线条透出 */
 }
