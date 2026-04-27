@@ -1,3 +1,135 @@
+/* ==============================
+   不透明背景专用：平底锅页面加载动画
+   适配深浅模式 + 全屏纯色遮罩 + 完全不透明
+============================== */
+#preloader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  /* 浅色模式：纯白不透明背景 */
+  background: #ffffff !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 99999;
+  transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+/* 深色模式：纯黑不透明背景，自动适配主题切换 */
+[data-theme="dark"] #preloader {
+  background: #121212 !important;
+}
+/* 加载完成后彻底隐藏 */
+#preloader.hide {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+/* 动画容器大小，可自行调整数值 */
+.pl {
+  width: 130px;
+  height: 130px;
+  /* 浅色模式动画主色，和你主题链接色保持统一 */
+  color: #1a73e8;
+}
+/* 深色模式动画主色，自动适配主题切换 */
+[data-theme="dark"] .pl {
+  color: #64b5f6;
+}
+
+/* 动画核心逻辑（保留原版流畅度，适配新配色体系） */
+.pl__drop,.pl__drop-inner,.pl__pan,.pl__ring,.pl__shadow {
+    animation: pan 2s cubic-bezier(.65,0,.35,1) infinite
+}
+.pl__drop {transform-origin:13px 60px}
+.pl__drop-inner {animation-timing-function:cubic-bezier(.33,.84,.67,.84)}
+.pl__drop--1 {animation-name:drop-1}
+.pl__drop--1 .pl__drop-inner {animation-name:drop-1-inner}
+.pl__drop--2 {animation-name:drop-2}
+.pl__drop--2 .pl__drop-inner {animation-name:drop-2-inner}
+.pl__drop--3 {animation-name:drop-3;transform-origin:67px 72px}
+.pl__drop--3 .pl__drop-inner {animation-name:drop-3-inner}
+.pl__drop--4 {animation-name:drop-4;transform-origin:67px 72px}
+.pl__drop--4 .pl__drop-inner {animation-name:drop-4-inner}
+.pl__drop--5 {animation-name:drop-5;transform-origin:67px 72px}
+.pl__drop--5 .pl__drop-inner {animation-name:drop-5-inner}
+.pl__pan {transform-origin:36px 74px}
+.pl__ring {animation-name:flip-ring}
+.pl__shadow {animation-name:pan-shadow;transform-origin:36px 124.5px}
+
+@keyframes drop-1 {
+    0%{animation-timing-function:steps(1,end);transform:translate(0);visibility:hidden}
+    30%{animation-timing-function:linear;transform:translate(0);visibility:visible}
+    50%,to{transform:translate(-6px)}
+}
+@keyframes drop-1-inner {
+    0%,30%{fill:currentColor;transform:translate(0)}
+    50%,to{fill:transparent;transform:translateY(-27px)}
+}
+@keyframes drop-2 {
+    0%{animation-timing-function:steps(1,end);transform:translate(0);visibility:hidden}
+    30%{animation-timing-function:linear;transform:translate(0);visibility:visible}
+    50%,to{transform:translate(-8px)}
+}
+@keyframes drop-2-inner {
+    0%,30%{fill:currentColor;transform:translate(0)}
+    50%,to{fill:transparent;transform:translateY(-9px)}
+}
+@keyframes drop-3 {
+    0%{animation-timing-function:steps(1,end);transform:translate(0);visibility:hidden}
+    78%{animation-timing-function:linear;transform:translate(0);visibility:visible}
+    98%,to{transform:translate(-24px)}
+}
+@keyframes drop-3-inner {
+    0%,78%{fill:currentColor;transform:translate(0)}
+    98%,to{fill:transparent;transform:translateY(-28px)}
+}
+@keyframes drop-4 {
+    0%{animation-timing-function:steps(1,end);transform:translate(0);visibility:hidden}
+    78%{animation-timing-function:linear;transform:translate(0);visibility:visible}
+    98%,to{transform:translate(-8px)}
+}
+@keyframes drop-4-inner {
+    0%,78%{fill:currentColor;transform:translate(0)}
+    98%,to{fill:transparent;transform:translateY(-36px)}
+}
+@keyframes drop-5 {
+    0%{animation-timing-function:steps(1,end);transform:translate(0);visibility:hidden}
+    78%{animation-timing-function:linear;transform:translate(0);visibility:visible}
+    98%,to{transform:translate(8px)}
+}
+@keyframes drop-5-inner {
+    0%,78%{fill:currentColor;transform:translate(0)}
+    98%,to{fill:transparent;transform:translateY(-32px)}
+}
+@keyframes flip-ring {
+    0%,27%{animation-timing-function:cubic-bezier(.33,.84,.67,.84);stroke-dashoffset:20;stroke-width:4px}
+    53.5%{animation-timing-function:cubic-bezier(.33,.16,.67,.16);stroke-dashoffset:-100;stroke-width:10px}
+    80%,to{stroke-dashoffset:-220;stroke-width:4px}
+}
+@keyframes pan {
+    0%,88%,to{transform:translate(0) rotate(0)}
+    20%{animation-timing-function:cubic-bezier(.33,.16,.67,.16);transform:translate(-5px) rotate(-30deg)}
+    30%{animation-timing-function:cubic-bezier(.33,.84,.67,.84);transform:translate(0) rotate(20deg)}
+    60%,78%{animation-timing-function:linear;transform:translate(0) rotate(0)}
+    81.33%{animation-timing-function:linear;transform:translateY(4px) rotate(0)}
+    84.67%{animation-timing-function:linear;transform:translateY(-2px) rotate(0)}
+}
+@keyframes pan-shadow {
+    0%,88%,to{fill: rgba(0,0,0,0.15);transform:scaleX(1)}
+    20%{animation-timing-function:cubic-bezier(.33,.16,.67,.16);fill: rgba(0,0,0,0.15);transform:scaleX(.77)}
+    30%{animation-timing-function:cubic-bezier(.33,.84,.67,.84);fill: rgba(0,0,0,0.15);transform:scaleX(1)}
+    60%,78%{animation-timing-function:linear;fill: rgba(0,0,0,0.15);transform:scaleX(1)}
+    81.33%{animation-timing-function:linear;fill: rgba(0,0,0,0.2);transform:scaleX(.87)}
+    84.67%{animation-timing-function:linear;fill: rgba(0,0,0,0.18);transform:scaleX(1.065)}
+}
+/* 深色模式阴影适配，保证对比度 */
+[data-theme="dark"] .pl__shadow {
+    fill: rgba(255,255,255,0.2) !important;
+}
+
 /* ========== 全局背景透明 ========== */
 body {
     background: transparent !important;

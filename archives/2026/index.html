@@ -139,7 +139,164 @@
   isHighlightShrink: false,
   isToc: false,
   pageType: 'archive'
-}</script><link rel="stylesheet" href="/css/custom.css"><link rel="stylesheet" href="/css/mouse-lines.css"><script>setTimeout(() => {
+}</script><link rel="stylesheet" href="/css/custom.css"><link rel="stylesheet" href="/css/mouse-lines.css"><style>
+  :root {
+    --hue: 223;
+    --bg: hsl(var(--hue),10%,90%);
+    --fg: hsl(var(--hue),10%,10%);
+  }
+  #loading-box {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: var(--bg);
+    z-index: 999999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.5s ease, visibility 0.5s ease;
+  }
+  #loading-box.loaded {
+    opacity: 0;
+    visibility: hidden;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: hsl(var(--hue),10%,10%);
+      --fg: hsl(var(--hue),10%,90%);
+    }
+  }
+  .pl {
+    width: 12em;
+    height: 12em;
+  }
+  .pl__drop, .pl__drop-inner, .pl__pan, .pl__ring, .pl__shadow {
+    animation: pan 2s cubic-bezier(0.65,0,0.35,1) infinite;
+  }
+  .pl__drop { transform-origin: 13px 60px; }
+  .pl__drop-inner { animation-timing-function: cubic-bezier(0.33,0.84,0.67,0.84); }
+  .pl__drop--1 { animation-name: drop-1; }
+  .pl__drop--1 .pl__drop-inner { animation-name: drop-1-inner; }
+  .pl__drop--2 { animation-name: drop-2; }
+  .pl__drop--2 .pl__drop-inner { animation-name: drop-2-inner; }
+  .pl__drop--3 { animation-name: drop-3; transform-origin: 67px 72px; }
+  .pl__drop--3 .pl__drop-inner { animation-name: drop-3-inner; }
+  .pl__drop--4 { animation-name: drop-4; transform-origin: 67px 72px; }
+  .pl__drop--4 .pl__drop-inner { animation-name: drop-4-inner; }
+  .pl__drop--5 { animation-name: drop-5; transform-origin: 67px 72px; }
+  .pl__drop--5 .pl__drop-inner { animation-name: drop-5-inner; }
+  .pl__pan { transform-origin: 36px 74px; }
+  .pl__ring { animation-name: flip-ring; }
+  .pl__shadow { animation-name: pan-shadow; transform-origin: 36px 124.5px; }
+
+  @keyframes drop-1 {
+    from{animation-timing-function:steps(1,end);transform:translate(0,0);visibility:hidden;}
+    30%{animation-timing-function:linear;transform:translate(0,0);visibility:visible;}
+    50%,to{transform:translate(-6px,0);}
+  }
+  @keyframes drop-1-inner {
+    from,30%{fill:#abafba;transform:translate(0,0);}
+    50%,to{fill:rgba(171,175,186,0);transform:translate(0,-27px);}
+  }
+  @keyframes drop-2 {
+    from{animation-timing-function:steps(1,end);transform:translate(0,0);visibility:hidden;}
+    30%{animation-timing-function:linear;transform:translate(0,0);visibility:visible;}
+    50%,to{transform:translate(-8px,0);}
+  }
+  @keyframes drop-2-inner {
+    from,30%{fill:#abafba;transform:translate(0,0);}
+    50%,to{fill:rgba(171,175,186,0);transform:translate(0,-9px);}
+  }
+  @keyframes drop-3 {
+    from{animation-timing-function:steps(1,end);transform:translate(0,0);visibility:hidden;}
+    78%{animation-timing-function:linear;transform:translate(0,0);visibility:visible;}
+    98%,to{transform:translate(-24px,0);}
+  }
+  @keyframes drop-3-inner {
+    from,78%{fill:#abafba;transform:translate(0,0);}
+    98%,to{fill:rgba(171,175,186,0);transform:translate(0,-28px);}
+  }
+  @keyframes drop-4 {
+    from{animation-timing-function:steps(1,end);transform:translate(0,0);visibility:hidden;}
+    78%{animation-timing-function:linear;transform:translate(0,0);visibility:visible;}
+    98%,to{transform:translate(-8px,0);}
+  }
+  @keyframes drop-4-inner {
+    from,78%{fill:#abafba;transform:translate(0,0);}
+    98%,to{fill:rgba(171,175,186,0);transform:translate(0,-36px);}
+  }
+  @keyframes drop-5 {
+    from{animation-timing-function:steps(1,end);transform:translate(0,0);visibility:hidden;}
+    78%{animation-timing-function:linear;transform:translate(0,0);visibility:visible;}
+    98%,to{transform:translate(8px,0);}
+  }
+  @keyframes drop-5-inner {
+    from,78%{fill:#abafba;transform:translate(0,0);}
+    98%,to{fill:rgba(171,175,186,0);transform:translate(0,-32px);}
+  }
+  @keyframes flip-ring {
+    from,27%{animation-timing-function:cubic-bezier(0.33,0.84,0.67,0.84);stroke-dashoffset:20;stroke-width:4px;}
+    53.5%{animation-timing-function:cubic-bezier(0.33,0.16,0.67,0.16);stroke-dashoffset:-100;stroke-width:10px;}
+    80%,to{stroke-dashoffset:-220;stroke-width:4px;}
+  }
+  @keyframes pan {
+    from,88%,to{transform:translate(0,0) rotate(0);}
+    20%{animation-timing-function:cubic-bezier(0.33,0.16,0.67,0.16);transform:translate(-5px,0) rotate(-30deg);}
+    30%{animation-timing-function:cubic-bezier(0.33,0.84,0.67,0.84);transform:translate(0,0) rotate(20deg);}
+    60%,78%{animation-timing-function:linear;transform:translate(0,0) rotate(0);}
+    81.33%{animation-timing-function:linear;transform:translate(0,4px) rotate(0);}
+    84.67%{animation-timing-function:linear;transform:translate(0,-2px) rotate(0);}
+  }
+  @keyframes pan-shadow {
+    from,88%,to{fill:rgba(115,122,140,0.2);transform:scaleX(1);}
+    20%{animation-timing-function:cubic-bezier(0.33,0.16,0.67,0.16);fill:rgba(115,122,140,0.2);transform:scaleX(0.77);}
+    30%{animation-timing-function:cubic-bezier(0.33,0.84,0.67,0.84);fill:rgba(115,122,140,0.2);transform:scaleX(1);}
+    60%,78%{animation-timing-function:linear;fill:rgba(115,122,140,0.2);transform:scaleX(1);}
+    81.33%{animation-timing-function:linear;fill:rgba(115,122,140,0.25);transform:scaleX(0.87);}
+    84.67%{animation-timing-function:linear;fill:rgba(115,122,140,0.225);transform:scaleX(1.065);}
+  }
+</style>
+<div id="loading-box">
+  <svg class="pl" viewBox="0 0 128 128" width="128px" height="128px">
+    <clipPath id="pan-clip">
+      <rect rx="12" ry="14" x="4" y="52" width="68" height="28"/>
+    </clipPath>
+    <defs>
+      <linearGradient id="pl-grad" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#000"/>
+        <stop offset="100%" stop-color="#fff"/>
+      </linearGradient>
+      <mask id="pl-mask">
+        <rect x="0" y="0" width="88" height="80" fill="url(#pl-grad)"/>
+      </mask>
+    </defs>
+    <g fill="currentColor">
+      <g fill="none" stroke-dasharray="20 221" stroke-dashoffset="20" stroke-linecap="round" stroke-width="4">
+        <g stroke="hsl(38,90%,50%)">
+          <circle class="pl__ring" cx="44" cy="40" r="35" transform="rotate(90,44,40)"/>
+        </g>
+        <g stroke="hsl(8,90%,40%)" mask="url(#pl-mask)">
+          <circle class="pl__ring" cx="44" cy="40" r="35" transform="rotate(90,44,40)"/>
+        </g>
+      </g>
+      <g fill="hsla(223,10%,70%,0)">
+        <g class="pl__drop pl__drop--1"><circle class="pl__drop-inner" cx="13" cy="60" r="2"/></g>
+        <g class="pl__drop pl__drop--2"><circle class="pl__drop-inner" cx="13" cy="60" r="2"/></g>
+        <g class="pl__drop pl__drop--3"><circle class="pl__drop-inner" cx="67" cy="72" r="2"/></g>
+        <g class="pl__drop pl__drop--4"><circle class="pl__drop-inner" cx="67" cy="72" r="2"/></g>
+        <g class="pl__drop pl__drop--5"><circle class="pl__drop-inner" cx="67" cy="72" r="2"/></g>
+      </g>
+      <g class="pl__pan">
+        <rect rx="2" ry="2" x="4" y="66" width="68" height="14" clip-path="url(#pan-clip)"/>
+        <rect rx="2" ry="2" x="76" y="66" width="48" height="7"/>
+      </g>
+      <rect class="pl__shadow" fill="hsla(223,10%,50%,0.2)" rx="3.5" ry="3.5" x="10" y="121" width="60" height="7"/>
+    </g>
+  </svg>
+</div>
+<script>setTimeout(() => {
   const canvas = document.createElement('canvas');
   canvas.style.cssText = 'position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:-99999999;pointer-events:none;background:transparent;';
   document.body.appendChild(canvas);
@@ -210,7 +367,7 @@
     canvas.width = W;
     canvas.height = H;
   });
-}, 1000);</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="web_bg" style="background-image: url(https://pic1.imgdb.cn/item/67b8151ed0e0a243d4014110.jpg);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/butterfly-icon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">4</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">3</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 档案</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="page" id="body-wrap"><header class="not-home-page" id="page-header" style="background-image: url(https://pic1.imgdb.cn/item/67b8151ed0e0a243d4014110.jpg);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Nora</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 档案</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="page-site-info"><h1 id="site-title">2026</h1></div></header><main class="layout" id="content-inner"><div id="archive"><div class="article-sort-title">All Articles - 2</div><div class="article-sort"><div class="article-sort-item year">2026</div><div class="article-sort-item no-article-cover"><div class="article-sort-item-info"><div class="article-sort-item-time"><i class="far fa-calendar-alt"></i><time class="post-meta-date-created" datetime="2026-04-25T18:54:54.000Z" title="Created 2026-04-26 02:54:54">2026-04-26</time></div><a class="article-sort-item-title" href="/2026/04/26/Build%20your%20own%20Game/" title="Build your own Game">Build your own Game</a></div></div><div class="article-sort-item no-article-cover"><div class="article-sort-item-info"><div class="article-sort-item-time"><i class="far fa-calendar-alt"></i><time class="post-meta-date-created" datetime="2026-04-24T17:16:34.000Z" title="Created 2026-04-25 01:16:34">2026-04-25</time></div><a class="article-sort-item-title" href="/2026/04/25/%E5%8D%9A%E5%AE%A2%E6%9B%B4%E6%96%B0%E6%97%A5%E5%BF%97/" title="博客更新日志">博客更新日志</a></div></div></div><nav id="pagination"><div class="pagination"><span class="page-number current">1</span></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/butterfly-icon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">zengyunyu</div><div class="author-info-description"></div><div class="site-data"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">4</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">3</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">制作不佳，敬请谅解</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Posts</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/04/26/Build%20your%20own%20Game/" title="Build your own Game">Build your own Game</a><time datetime="2026-04-25T18:54:54.000Z" title="Created 2026-04-26 02:54:54">2026-04-26</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/04/25/%E5%8D%9A%E5%AE%A2%E6%9B%B4%E6%96%B0%E6%97%A5%E5%BF%97/" title="博客更新日志">博客更新日志</a><time datetime="2026-04-24T17:16:34.000Z" title="Created 2026-04-25 01:16:34">2026-04-25</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/02/21/asm1/" title="汇编指令">汇编指令</a><time datetime="2025-02-21T05:27:54.000Z" title="Created 2025-02-21 13:27:54">2025-02-21</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/02/21/hello-world/" title="Linux学习">Linux学习</a><time datetime="2025-02-21T05:10:04.174Z" title="Created 2025-02-21 13:10:04">2025-02-21</time></div></div></div></div><div class="card-widget card-categories"><div class="item-headline">
+}, 1000);</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="web_bg" style="background-image: url(https://pic1.imgdb.cn/item/67b8151ed0e0a243d4014110.jpg);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/butterfly-icon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">5</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">3</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 档案</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="page" id="body-wrap"><header class="not-home-page" id="page-header" style="background-image: url(https://pic1.imgdb.cn/item/67b8151ed0e0a243d4014110.jpg);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Nora</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 档案</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="page-site-info"><h1 id="site-title">2026</h1></div></header><main class="layout" id="content-inner"><div id="archive"><div class="article-sort-title">All Articles - 3</div><div class="article-sort"><div class="article-sort-item year">2026</div><div class="article-sort-item no-article-cover"><div class="article-sort-item-info"><div class="article-sort-item-time"><i class="far fa-calendar-alt"></i><time class="post-meta-date-created" datetime="2026-04-26T16:52:04.736Z" title="Created 2026-04-27 00:52:04">2026-04-27</time></div><a class="article-sort-item-title" href="/2026/04/27/C#%20Creating%20a%20Roguelike%20Game%20in%20C#/" title="Untitled">Untitled</a></div></div><div class="article-sort-item no-article-cover"><div class="article-sort-item-info"><div class="article-sort-item-time"><i class="far fa-calendar-alt"></i><time class="post-meta-date-created" datetime="2026-04-25T18:54:54.000Z" title="Created 2026-04-26 02:54:54">2026-04-26</time></div><a class="article-sort-item-title" href="/2026/04/26/Build%20your%20own%20Game/" title="Build your own Game">Build your own Game</a></div></div><div class="article-sort-item no-article-cover"><div class="article-sort-item-info"><div class="article-sort-item-time"><i class="far fa-calendar-alt"></i><time class="post-meta-date-created" datetime="2026-04-24T17:16:34.000Z" title="Created 2026-04-25 01:16:34">2026-04-25</time></div><a class="article-sort-item-title" href="/2026/04/25/%E5%8D%9A%E5%AE%A2%E6%9B%B4%E6%96%B0%E6%97%A5%E5%BF%97/" title="博客更新日志">博客更新日志</a></div></div></div><nav id="pagination"><div class="pagination"><span class="page-number current">1</span></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/butterfly-icon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">zengyunyu</div><div class="author-info-description"></div><div class="site-data"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">5</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">3</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">制作不佳，敬请谅解</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Posts</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/04/27/C#%20Creating%20a%20Roguelike%20Game%20in%20C#/" title="Untitled">Untitled</a><time datetime="2026-04-26T16:52:04.736Z" title="Created 2026-04-27 00:52:04">2026-04-27</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/04/26/Build%20your%20own%20Game/" title="Build your own Game">Build your own Game</a><time datetime="2026-04-25T18:54:54.000Z" title="Created 2026-04-26 02:54:54">2026-04-26</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/04/25/%E5%8D%9A%E5%AE%A2%E6%9B%B4%E6%96%B0%E6%97%A5%E5%BF%97/" title="博客更新日志">博客更新日志</a><time datetime="2026-04-24T17:16:34.000Z" title="Created 2026-04-25 01:16:34">2026-04-25</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/02/21/asm1/" title="汇编指令">汇编指令</a><time datetime="2025-02-21T05:27:54.000Z" title="Created 2025-02-21 13:27:54">2025-02-21</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/02/21/hello-world/" title="Linux学习">Linux学习</a><time datetime="2025-02-21T05:10:04.174Z" title="Created 2025-02-21 13:10:04">2025-02-21</time></div></div></div></div><div class="card-widget card-categories"><div class="item-headline">
             <i class="fas fa-folder-open"></i>
             <span>Categories</span>
             
@@ -231,7 +388,7 @@
             <span class="card-archive-list-date">
               四月 2026
             </span>
-            <span class="card-archive-list-count">2</span>
+            <span class="card-archive-list-count">3</span>
           </a>
         </li>
       
@@ -245,4 +402,16 @@
         </li>
       
     </ul>
-  </div><div class="card-widget card-webinfo"><div class="item-headline"><i class="fas fa-chart-line"></i><span>Website Info</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">Article Count :</div><div class="item-count">4</div></div><div class="webinfo-item"><div class="item-name">Unique Visitors :</div><div class="item-count" id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">Page Views :</div><div class="item-count" id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">Last Update :</div><div class="item-count" id="last-push-date" data-lastPushDate="2026-04-26T16:44:05.433Z"><i class="fa-solid fa-spinner fa-spin"></i></div></div></div></div></div></div></main><footer id="footer" style="background-image: url(https://pic1.imgdb.cn/item/67b8151ed0e0a243d4014110.jpg);"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2026 By zengyunyu</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 7.3.0</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.3.3</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="Toggle Between Light and Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Settings"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"></div><script defer src="/js/mouse-lines.js"></script><span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span><script> var now = new Date(); function createtime() { var grt= new Date("04/25/2026 00:00:00"); now.setTime(now.getTime()+250); days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days); hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours); if(String(hnum).length === 1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum); mnum = Math.floor(minutes); if(String(mnum).length === 1 ){mnum = "0" + mnum;} seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum); snum = Math.round(seconds); if(String(snum).length === 1 ){snum = "0" + snum;} document.getElementById("timeDate").innerHTML = "本站已运行 "+dnum+" 天 "; document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒"; } setInterval(createtime,250); </script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
+  </div><div class="card-widget card-webinfo"><div class="item-headline"><i class="fas fa-chart-line"></i><span>Website Info</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">Article Count :</div><div class="item-count">5</div></div><div class="webinfo-item"><div class="item-name">Unique Visitors :</div><div class="item-count" id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">Page Views :</div><div class="item-count" id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">Last Update :</div><div class="item-count" id="last-push-date" data-lastPushDate="2026-04-27T08:47:00.889Z"><i class="fa-solid fa-spinner fa-spin"></i></div></div></div></div></div></div></main><footer id="footer" style="background-image: url(https://pic1.imgdb.cn/item/67b8151ed0e0a243d4014110.jpg);"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2026 By zengyunyu</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 7.3.0</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.3.3</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="Toggle Between Light and Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Settings"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"></div><script defer src="/js/mouse-lines.js"></script><span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span><script> var now = new Date(); function createtime() { var grt= new Date("04/25/2026 00:00:00"); now.setTime(now.getTime()+250); days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days); hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours); if(String(hnum).length === 1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum); mnum = Math.floor(minutes); if(String(mnum).length === 1 ){mnum = "0" + mnum;} seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum); snum = Math.round(seconds); if(String(snum).length === 1 ){snum = "0" + snum;} document.getElementById("timeDate").innerHTML = "本站已运行 "+dnum+" 天 "; document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒"; } setInterval(createtime,250); </script><script>
+  function hideLoading() {
+    const l = document.getElementById('loading-box');
+    if(l) {
+      setTimeout(() => {
+        l.classList.add('loaded');
+        setTimeout(() => l.remove(), 500);
+      }, 3000);
+    }
+  }
+  window.addEventListener('load', hideLoading);
+</script>
+<script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
